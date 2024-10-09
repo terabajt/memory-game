@@ -3,7 +3,15 @@
   font-family: Arial, sans-serif;
 }
 
-.reset-button {
+.start-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+.end-button {
   margin-top: 20px;
   padding: 10px 20px;
   background-color: var(--primary-color);
