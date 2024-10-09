@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Board from './components/Board';
 import './styles/App.scss';
 
-// Definicja interfejsu dla kart
 interface Card {
   id: number;
   content: string;
@@ -11,17 +10,16 @@ interface Card {
 }
 
 const App: React.FC = () => {
-  // Inicjujemy stan kart
+
   const [cards, setCards] = useState<Card[]>([]);
   const [flippedCards, setFlippedCards] = useState<Card[]>([]);
 
-  // Zawartość kart - możesz ją później dostosować
   const cardContents = ['🍎', '🍌', '🍇', '🍒', '🍍', '🍓', '🍑', '🍉'];
 
-  // Funkcja do tasowania kart i resetowania planszy
+
   const initializeCards = () => {
-    const shuffledCards = [...cardContents, ...cardContents] // Podwajamy, by mieć pary
-      .sort(() => Math.random() - 0.5) // Tasujemy karty
+    const shuffledCards = [...cardContents, ...cardContents]
+      .sort(() => Math.random() - 0.5)
       .map((content, index) => ({
         id: index,
         content,
@@ -33,7 +31,7 @@ const App: React.FC = () => {
     setFlippedCards([]);
   };
 
-  // Funkcja uruchamiająca się przy kliknięciu karty
+
   const handleCardClick = (clickedCardId: number) => {
     const clickedCard = cards.find((card) => card.id === clickedCardId);
 
@@ -47,18 +45,18 @@ const App: React.FC = () => {
     );
     setCards(updatedCards);
 
-    // Sprawdzamy, czy wybrano 2 karty
+
     if (updatedFlippedCards.length === 2) {
-      setTimeout(() => checkForMatch(updatedFlippedCards), 1000); // Małe opóźnienie
+      setTimeout(() => checkForMatch(updatedFlippedCards), 1000);
     }
   };
 
-  // Sprawdzenie dopasowania kart
+
   const checkForMatch = (flippedCards: Card[]) => {
     const [firstCard, secondCard] = flippedCards;
 
     if (firstCard.content === secondCard.content) {
-      // Dopasowanie kart
+
       const updatedCards = cards.map((card) =>
         card.id === firstCard.id || card.id === secondCard.id
           ? { ...card, isMatched: true }
@@ -66,7 +64,7 @@ const App: React.FC = () => {
       );
       setCards(updatedCards);
     } else {
-      // Karty nie pasują, odwracamy je z powrotem
+
       const updatedCards = cards.map((card) =>
         card.id === firstCard.id || card.id === secondCard.id
           ? { ...card, isFlipped: false }
@@ -74,19 +72,22 @@ const App: React.FC = () => {
       );
       setCards(updatedCards);
     }
-    setFlippedCards([]); // Resetujemy stan odwróconych kart
+    setFlippedCards([]);
   };
 
-  // Resetowanie gry
+
   useEffect(() => {
-    initializeCards(); // Inicjalizacja kart przy pierwszym załadowaniu
+    initializeCards();
   }, []);
 
   return (
     <div className="app">
-      <h1>Memory Game</h1>
-      <Board cards={cards} onCardClick={handleCardClick} />
-      <button className="reset-button" onClick={initializeCards}>Reset Game</button>
+      <div className="board-container">
+        <h1>Memory Game</h1>
+        <Board cards={cards} onCardClick={handleCardClick} />
+        <button className="reset-button" onClick={initializeCards}>Reset Game</button>
+      </div>
+
     </div>
   );
 };
