@@ -77,7 +77,7 @@ const MemoryGame: React.FC = () => {
     initializeCards();
   }, []);
 
-  const { attempts, elapsedTime, gameStarted, startGame, endGame, tileCount, setTileCount, resetGame, set, incrementAttempts, incrementMatchedPairs, matchedPairs } = useGameStore();
+  const { attempts, elapsedTime, gameStarted, startGame, endGame, setTileCount, set, incrementAttempts, incrementMatchedPairs, matchedPairs } = useGameStore();
 
   useEffect(() => {
     if (gameStarted) {

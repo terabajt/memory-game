@@ -24,17 +24,17 @@ export const useGameStore = create<GameState>((set) => ({
   tileCount: 16,
   matchedPairs: 0,
   startGame: () =>
-    set((state) => ({
+    set(() => ({
       gameStarted: true,
       startTime: Date.now(),
       attempts: 0,
       elapsedTime: 0,
       matchedPairs: 0,
     })),
-  endGame: () => set((state) => ({gameStarted: false})),
-  setTileCount: (count) => set((state) => ({tileCount: count})),
+  endGame: () => set(() => ({gameStarted: false})),
+  setTileCount: (count) => set(() => ({tileCount: count})),
   resetGame: () =>
-    set((state) => ({
+    set(() => ({
       attempts: 0,
       elapsedTime: 0,
       gameStarted: false,
