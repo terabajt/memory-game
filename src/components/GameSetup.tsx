@@ -1,5 +1,7 @@
 import React from 'react';
+import '../styles/App.scss';
 import DifficultySelector from './DifficultySelector';
+
 
 interface GameSetupProps {
   playerNameInput: string;
@@ -10,14 +12,14 @@ interface GameSetupProps {
 
 const GameSetup: React.FC<GameSetupProps> = ({ playerNameInput, setPlayerNameInput, setTileCount, handleStartGame }) => {
   return (
-    <div>
+    <div  className="container">
       <DifficultySelector setTileCount={setTileCount} disabled={false} />
-      <input
+      <div className="input-container">  <input
         type="text"
         placeholder="Enter player name"
         value={playerNameInput}
         onChange={(e) => setPlayerNameInput(e.target.value)}
-      />
+      /></div>
       <button className="start-button" onClick={handleStartGame}>Start Game</button>
     </div>
   );

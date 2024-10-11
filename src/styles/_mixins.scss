@@ -4,6 +4,13 @@
   align-items: center;
 }
 
+@mixin flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
 @mixin respond-to($breakpoint) {
   @if $breakpoint == mobile {
     @media (max-width: 768px) {

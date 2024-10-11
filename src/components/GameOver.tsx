@@ -23,17 +23,26 @@ const GameOver: React.FC<GameOverProps> = ({
   setPlayerNameInput,
   handleStartGame,
 }) => {
-  // Sortowanie historii rund po najniższym czasie i największej liczbie znalezionych par
   const sortedRoundHistory = [...roundHistory].sort((a, b) => {
-    if (a.elapsedTime === b.elapsedTime) {
-      return b.matchedPairs - a.matchedPairs;
+    if (b.matchedPairs === a.matchedPairs) {
+      return a.elapsedTime - b.elapsedTime;
     }
-    return a.elapsedTime - b.elapsedTime;
+    return b.matchedPairs - a.matchedPairs;
   });
 
   return (
     <div>
       <h2>Congratulations! You've found all pairs!</h2>
+      <div  className="container">
+      <DifficultySelector setTileCount={setTileCount} disabled={false} />
+      <div className="input-container">  <input
+        type="text"
+        placeholder="Enter player name"
+        value={playerNameInput}
+        onChange={(e) => setPlayerNameInput(e.target.value)}
+      /></div>
+      <button className="start-button" onClick={handleStartGame}>Start Game</button>
+    </div>
       <GameStats attempts={attempts} elapsedTime={elapsedTime} matchedPairs={matchedPairs} />
       <h3>Round History</h3>
       <table>
@@ -56,14 +65,7 @@ const GameOver: React.FC<GameOverProps> = ({
           ))}
         </tbody>
       </table>
-      <DifficultySelector setTileCount={setTileCount} disabled={false} />
-      <input
-        type="text"
-        placeholder="Enter player name"
-        value={playerNameInput}
-        onChange={(e) => setPlayerNameInput(e.target.value)}
-      />
-      <button className="start-button" onClick={handleStartGame}>Start New Game</button>
+
     </div>
   );
 };
