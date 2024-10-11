@@ -14,6 +14,8 @@ interface Card {
 const MemoryGame: React.FC = () => {
   const [cards, setCards] = useState<Card[]>([]);
   const [flippedCards, setFlippedCards] = useState<Card[]>([]);
+  const [gameFinished, setGameFinished] = useState<boolean>(false);
+  const [playerNameInput, setPlayerNameInput] = useState<string>('');
 
   const cardContents = [
     '🍎', '🍌', '🍇', '🍒', '🍍', '🍓', '🍑', '🍉',
@@ -36,6 +38,7 @@ const MemoryGame: React.FC = () => {
 
     setCards(shuffledCards);
     setFlippedCards([]);
+    setGameFinished(false);
   };
 
   const handleCardClick = (clickedCardId: number) => {
@@ -69,6 +72,12 @@ const MemoryGame: React.FC = () => {
           : card
       );
       setCards(updatedCards);
+
+      if (updatedCards.every((card) => card.isMatched)) {
+        setGameFinished(true);
+        endGame();
+        updateRoundHistory();
+      }
     } else {
       const updatedCards = cards.map((card) =>
         card.id === firstCard.id || card.id === secondCard.id
@@ -80,11 +89,15 @@ const MemoryGame: React.FC = () => {
     setFlippedCards([]);
   };
 
-  const { attempts, elapsedTime, gameStarted, startGame, endGame, tileCount, setTileCount, set, incrementAttempts, incrementMatchedPairs, matchedPairs } = useGameStore();
+  const { attempts, elapsedTime, gameStarted, startGame, endGame, tileCount, setTileCount, set, incrementAttempts, incrementMatchedPairs, matchedPairs, roundHistory, updateRoundHistory, loadRoundHistory, setPlayerName, resetGame } = useGameStore();
 
   useEffect(() => {
     initializeCards(tileCount);
   }, [tileCount]);
+
+  useEffect(() => {
+    loadRoundHistory();
+  }, []);
 
   useEffect(() => {
     if (gameStarted) {
@@ -98,14 +111,62 @@ const MemoryGame: React.FC = () => {
 
   const handleGameFinish = () => {
     endGame();
+    updateRoundHistory();
+    setGameFinished(true);
+  };
+
+  const handleStartGame = () => {
+    resetGame();
+    setPlayerName(playerNameInput);
+    initializeCards(tileCount); // Initialize cards when starting a new game
+    startGame();
   };
 
   return (
     <div className="memory-game">
-      <DifficultySelector setTileCount={setTileCount} />
-      <GameStats attempts={attempts} elapsedTime={elapsedTime} matchedPairs={matchedPairs} />
-      {!gameStarted ? (
-        <button className="start-button" onClick={startGame}>Start Game</button>
+      {!gameStarted && !gameFinished ? (
+        <div>
+          <DifficultySelector setTileCount={setTileCount} disabled={gameStarted} />
+          <input
+            type="text"
+            placeholder="Enter player name"
+            value={playerNameInput}
+            onChange={(e) => setPlayerNameInput(e.target.value)}
+          />
+          <button className="start-button" onClick={handleStartGame}>Start Game</button>
+        </div>
+      ) : gameFinished ? (
+        <div>
+          <h2>Congratulations! You've found all pairs!</h2>
+          <GameStats attempts={attempts} elapsedTime={elapsedTime} matchedPairs={matchedPairs} />
+          <h3>Round History</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Player Name</th>
+                <th>Attempts</th>
+                <th>Elapsed Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              {roundHistory.map((round, index) => (
+                <tr key={index}>
+                  <td>{round.playerName}</td>
+                  <td>{round.attempts}</td>
+                  <td>{round.elapsedTime} seconds</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <DifficultySelector setTileCount={setTileCount} disabled={false} />
+          <input
+            type="text"
+            placeholder="Enter player name"
+            value={playerNameInput}
+            onChange={(e) => setPlayerNameInput(e.target.value)}
+          />
+          <button className="start-button" onClick={handleStartGame}>Start New Game</button>
+        </div>
       ) : (
         <div>
           <Board cards={cards} onCardClick={handleCardClick} />

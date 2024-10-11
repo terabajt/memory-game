@@ -2,9 +2,10 @@ import React from 'react';
 
 interface DifficultySelectorProps {
   setTileCount: (count: number) => void;
+  disabled: boolean;
 }
 
-const DifficultySelector: React.FC<DifficultySelectorProps> = ({ setTileCount }) => {
+const DifficultySelector: React.FC<DifficultySelectorProps> = ({ setTileCount, disabled }) => {
   const handleDifficultyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const difficulty = event.target.value;
 
@@ -25,7 +26,7 @@ const DifficultySelector: React.FC<DifficultySelectorProps> = ({ setTileCount })
   };
 
   return (
-    <select onChange={handleDifficultyChange}>
+    <select onChange={handleDifficultyChange} disabled={disabled}>
       <option value="easy">Easy</option>
       <option value="medium">Medium</option>
       <option value="hard">Hard</option>
