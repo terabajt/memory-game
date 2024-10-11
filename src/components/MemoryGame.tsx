@@ -15,10 +15,17 @@ const MemoryGame: React.FC = () => {
   const [cards, setCards] = useState<Card[]>([]);
   const [flippedCards, setFlippedCards] = useState<Card[]>([]);
 
-  const cardContents = ['🍎', '🍌', '🍇', '🍒', '🍍', '🍓', '🍑', '🍉'];
+  const cardContents = [
+    '🍎', '🍌', '🍇', '🍒', '🍍', '🍓', '🍑', '🍉',
+    '🍋', '🍈', '🍏', '🍐', '🍊', '🥭', '🥥', '🍅',
+    '🍆', '🥑', '🥝', '😀', '😃', '😄', '😁', '😆',
+    '😅', '😂', '🤣', '😊', '😇', '🙂'
+  ];
 
-  const initializeCards = () => {
-    const shuffledCards = [...cardContents, ...cardContents]
+  const initializeCards = (tileCount: number) => {
+    const selectedContents = cardContents.slice(0, tileCount / 2);
+    const pairedContents = [...selectedContents, ...selectedContents];
+    const shuffledCards = pairedContents
       .sort(() => Math.random() - 0.5)
       .map((content, index) => ({
         id: index,
@@ -73,11 +80,11 @@ const MemoryGame: React.FC = () => {
     setFlippedCards([]);
   };
 
-  useEffect(() => {
-    initializeCards();
-  }, []);
+  const { attempts, elapsedTime, gameStarted, startGame, endGame, tileCount, setTileCount, set, incrementAttempts, incrementMatchedPairs, matchedPairs } = useGameStore();
 
-  const { attempts, elapsedTime, gameStarted, startGame, endGame, setTileCount, set, incrementAttempts, incrementMatchedPairs, matchedPairs } = useGameStore();
+  useEffect(() => {
+    initializeCards(tileCount);
+  }, [tileCount]);
 
   useEffect(() => {
     if (gameStarted) {
