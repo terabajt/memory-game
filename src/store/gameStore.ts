@@ -1,5 +1,12 @@
 import {create} from "zustand";
 
+interface RoundHistory {
+  playerName: string;
+  attempts: number;
+  elapsedTime: number;
+  matchedPairs: number;
+}
+
 interface GameState {
   attempts: number;
   elapsedTime: number;
@@ -8,7 +15,7 @@ interface GameState {
   tileCount: number;
   matchedPairs: number;
   playerName: string;
-  roundHistory: {playerName: string; attempts: number; elapsedTime: number}[];
+  roundHistory: RoundHistory[];
   startGame: () => void;
   endGame: () => void;
   setTileCount: (count: number) => void;
@@ -21,19 +28,23 @@ interface GameState {
   set: (fn: (state: GameState) => Partial<GameState>) => void;
 }
 
-const saveRoundHistoryToLocalStorage = (
-  roundHistory: {playerName: string; attempts: number; elapsedTime: number}[]
-) => {
+const saveRoundHistoryToLocalStorage = (roundHistory: RoundHistory[]) => {
   localStorage.setItem("roundHistory", JSON.stringify(roundHistory));
 };
 
-const loadRoundHistoryFromLocalStorage = (): {
-  playerName: string;
-  attempts: number;
-  elapsedTime: number;
-}[] => {
-  const savedHistory = localStorage.getItem("roundHistory");
-  return savedHistory ? JSON.parse(savedHistory) : [];
+const loadRoundHistoryFromLocalStorage = (): RoundHistory[] => {
+  try {
+    const savedHistory = localStorage.getItem("roundHistory");
+    return savedHistory
+      ? JSON.parse(savedHistory).map((round: RoundHistory) => ({
+          ...round,
+          matchedPairs: round.matchedPairs ?? 0, // Ustaw domyślną wartość dla istniejących rund
+        }))
+      : [];
+  } catch (error) {
+    console.error("Failed to load round history from localStorage:", error);
+    return [];
+  }
 };
 
 export const useGameStore = create<GameState>((set) => ({
@@ -75,6 +86,7 @@ export const useGameStore = create<GameState>((set) => ({
           playerName: state.playerName,
           attempts: state.attempts,
           elapsedTime: state.elapsedTime,
+          matchedPairs: state.matchedPairs,
         },
       ];
       saveRoundHistoryToLocalStorage(newRoundHistory);

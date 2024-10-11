@@ -6,7 +6,7 @@ interface GameOverProps {
   attempts: number;
   elapsedTime: number;
   matchedPairs: number;
-  roundHistory: { playerName: string; attempts: number; elapsedTime: number }[];
+  roundHistory: { playerName: string; attempts: number; elapsedTime: number; matchedPairs: number }[];
   setTileCount: (count: number) => void;
   playerNameInput: string;
   setPlayerNameInput: (name: string) => void;
@@ -23,9 +23,10 @@ const GameOver: React.FC<GameOverProps> = ({
   setPlayerNameInput,
   handleStartGame,
 }) => {
+  // Sortowanie historii rund po najniższym czasie i największej liczbie znalezionych par
   const sortedRoundHistory = [...roundHistory].sort((a, b) => {
     if (a.elapsedTime === b.elapsedTime) {
-      return b.attempts - a.attempts;
+      return b.matchedPairs - a.matchedPairs;
     }
     return a.elapsedTime - b.elapsedTime;
   });
@@ -41,6 +42,7 @@ const GameOver: React.FC<GameOverProps> = ({
             <th>Player Name</th>
             <th>Attempts</th>
             <th>Elapsed Time</th>
+            <th>Matched Pairs</th>
           </tr>
         </thead>
         <tbody>
@@ -49,6 +51,7 @@ const GameOver: React.FC<GameOverProps> = ({
               <td>{round.playerName}</td>
               <td>{round.attempts}</td>
               <td>{round.elapsedTime} seconds</td>
+              <td>{round.matchedPairs}</td>
             </tr>
           ))}
         </tbody>

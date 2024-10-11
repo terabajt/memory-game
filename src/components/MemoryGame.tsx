@@ -8,7 +8,7 @@ const MemoryGame: React.FC = () => {
   const [gameFinished, setGameFinished] = useState<boolean>(false);
   const [playerNameInput, setPlayerNameInput] = useState<string>('');
 
-  const { attempts, elapsedTime, gameStarted, startGame, endGame, setTileCount, set, roundHistory, loadRoundHistory, setPlayerName, resetGame } = useGameStore();
+  const { attempts, elapsedTime, gameStarted, startGame, endGame, setTileCount, set, roundHistory, loadRoundHistory, setPlayerName, resetGame, matchedPairs, updateRoundHistory } = useGameStore();
 
   useEffect(() => {
     loadRoundHistory();
@@ -26,6 +26,7 @@ const MemoryGame: React.FC = () => {
 
   const handleGameFinish = () => {
     endGame();
+    updateRoundHistory();
     setGameFinished(true);
   };
 
@@ -33,7 +34,7 @@ const MemoryGame: React.FC = () => {
     resetGame();
     setPlayerName(playerNameInput);
     startGame();
-    setGameFinished(false);
+    setGameFinished(false); // Reset gameFinished state
   };
 
   return (
@@ -49,7 +50,7 @@ const MemoryGame: React.FC = () => {
         <GameOver
           attempts={attempts}
           elapsedTime={elapsedTime}
-          matchedPairs={roundHistory.length}
+          matchedPairs={matchedPairs}
           roundHistory={roundHistory}
           setTileCount={setTileCount}
           playerNameInput={playerNameInput}
