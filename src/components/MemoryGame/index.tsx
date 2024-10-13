@@ -77,7 +77,12 @@ const MemoryGame = () => {
                 </>
             ) : (
                 <>
-                    <GameBoard handleGameFinish={handleGameFinish} />
+                    <GameBoard
+                        handleGameFinish={handleGameFinish}
+                        attempts={attempts}
+                        elapsedTime={elapsedTime}
+                        matchedPairs={matchedPairs}
+                    />
                 </>
             )}
         </div>

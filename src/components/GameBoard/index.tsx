@@ -13,9 +13,11 @@ type Card = {
 type GameBoardProps = {
     handleGameFinish: () => void;
     attempts: number;
+    elapsedTime: number;
+    matchedPairs: number;
 };
 
-const GameBoard = ({ handleGameFinish }: GameBoardProps) => {
+const GameBoard = ({ handleGameFinish, attempts, elapsedTime, matchedPairs }: GameBoardProps) => {
     const [cards, setCards] = useState<Card[]>([]);
     const [flippedCards, setFlippedCards] = useState<Card[]>([]);
 
@@ -120,14 +122,7 @@ const GameBoard = ({ handleGameFinish }: GameBoardProps) => {
         setFlippedCards([]);
     };
 
-    const {
-        tileCount,
-        incrementAttempts,
-        incrementMatchedPairs,
-        attempts,
-        elapsedTime,
-        matchedPairs,
-    } = useGameStore();
+    const { tileCount, incrementAttempts, incrementMatchedPairs } = useGameStore();
 
     useEffect(() => {
         initializeCards(tileCount);
