@@ -10,7 +10,7 @@ type Card = {
     isMatched: boolean;
 }
 
-interface GameBoardProps {
+type GameBoardProps = {
     handleGameFinish: () => void;
 }
 
