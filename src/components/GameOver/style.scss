@@ -1,0 +1,29 @@
+.game-stats {
+  p {
+      margin: 0.5rem;
+  }
+}
+
+.round-history {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+
+  th, td {
+      border: 1px solid #ddd;
+      padding: 0.5rem;
+      text-align: left;
+  }
+
+  th {
+      background-color: #f2f2f2;
+  }
+
+  tbody tr:nth-child(even) {
+      background-color: #f9f9f9;
+  }
+
+  tbody tr:nth-child(odd) {
+      background-color: #fff;
+  }
+}

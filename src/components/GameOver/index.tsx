@@ -1,6 +1,7 @@
 import Confetti from 'react-confetti';
 import DifficultySelector from '../DifficultySelector';
 import GameStats from '../GameStats';
+import './style.scss';
 
 type GameOverProps = {
     attempts: number;
@@ -55,7 +56,7 @@ const GameOver = ({
             </div>
             <GameStats attempts={attempts} elapsedTime={elapsedTime} matchedPairs={matchedPairs} />
             <h3>Round History</h3>
-            <table>
+            <table className="round-history">
                 <thead>
                     <tr>
                         <th>Player Name</th>

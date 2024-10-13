@@ -1,3 +1,5 @@
+import './style.scss';
+
 type GameStatsProps = {
     attempts: number;
     elapsedTime: number;
