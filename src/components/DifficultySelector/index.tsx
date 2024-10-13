@@ -6,21 +6,24 @@ type DifficultySelectorProps = {
 }
 
 const DifficultySelector: React.FC<DifficultySelectorProps> = ({ setTileCount, disabled }) => {
+    const EASY =  12;
+    const MEDIUM = 20;
+    const HARD = 30;
     const handleDifficultyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const difficulty = event.target.value;
 
         switch (difficulty) {
             case 'easy':
-                setTileCount(12);
+                setTileCount(EASY);
                 break;
             case 'medium':
-                setTileCount(20);
+                setTileCount(MEDIUM);
                 break;
             case 'hard':
-                setTileCount(30);
+                setTileCount(HARD);
                 break;
             default:
-                setTileCount(12);
+                setTileCount(EASY);
                 break;
         }
     };
