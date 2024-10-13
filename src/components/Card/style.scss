@@ -1,5 +1,6 @@
 @use 'sass:color';
 @import '../../styles/variables';
+@import '../../styles/mixins';
 
 .card {
     width: 6.25rem;
@@ -28,5 +29,9 @@
 
     &:hover {
         background-color: color.adjust($primary-color, $lightness: 15%, $space: hsl);
+    }
+    @include respond-to(mobile) {
+        width: 4.25rem;
+        height: 4.25rem;
     }
 }
