@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useGameStore } from '../../store/gameStore';
 import Board from '../Board';
-import GameStats from '../GameSetup';
+import GameStats from '../GameStats';
 
 type Card = {
     id: number;
@@ -12,6 +12,7 @@ type Card = {
 
 type GameBoardProps = {
     handleGameFinish: () => void;
+    attempts: number;
 };
 
 const GameBoard = ({ handleGameFinish }: GameBoardProps) => {

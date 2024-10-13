@@ -48,31 +48,37 @@ const MemoryGame = () => {
         resetGame();
         setPlayerName(playerNameInput);
         startGame();
-        setGameFinished(false); // Reset gameFinished state
+        setGameFinished(false);
     };
 
     return (
         <div className="memory-game">
             {!gameStarted && !gameFinished ? (
-                <GameSetup
-                    playerNameInput={playerNameInput}
-                    setPlayerNameInput={setPlayerNameInput}
-                    setTileCount={setTileCount}
-                    handleStartGame={handleStartGame}
-                />
+                <>
+                    <GameSetup
+                        playerNameInput={playerNameInput}
+                        setPlayerNameInput={setPlayerNameInput}
+                        setTileCount={setTileCount}
+                        handleStartGame={handleStartGame}
+                    />
+                </>
             ) : gameFinished ? (
-                <GameOver
-                    attempts={attempts}
-                    elapsedTime={elapsedTime}
-                    matchedPairs={matchedPairs}
-                    roundHistory={roundHistory}
-                    setTileCount={setTileCount}
-                    playerNameInput={playerNameInput}
-                    setPlayerNameInput={setPlayerNameInput}
-                    handleStartGame={handleStartGame}
-                />
+                <>
+                    <GameOver
+                        attempts={attempts}
+                        elapsedTime={elapsedTime}
+                        matchedPairs={matchedPairs}
+                        roundHistory={roundHistory}
+                        setTileCount={setTileCount}
+                        playerNameInput={playerNameInput}
+                        setPlayerNameInput={setPlayerNameInput}
+                        handleStartGame={handleStartGame}
+                    />
+                </>
             ) : (
-                <GameBoard handleGameFinish={handleGameFinish} />
+                <>
+                    <GameBoard handleGameFinish={handleGameFinish} />
+                </>
             )}
         </div>
     );

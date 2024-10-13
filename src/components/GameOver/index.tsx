@@ -1,5 +1,5 @@
 import DifficultySelector from '../DifficultySelector';
-import GameStats from '../GameSetup';
+import GameStats from '../GameStats';
 
 type GameOverProps = {
     attempts: number;

@@ -38,7 +38,7 @@ const loadRoundHistoryFromLocalStorage = (): RoundHistory[] => {
         return savedHistory
             ? JSON.parse(savedHistory).map((round: RoundHistory) => ({
                   ...round,
-                  matchedPairs: round.matchedPairs ?? 0, // Ustaw domyślną wartość dla istniejących rund
+                  matchedPairs: round.matchedPairs ?? 0,
               }))
             : [];
     } catch (error) {
@@ -56,15 +56,18 @@ export const useGameStore = create<GameState>(set => ({
     matchedPairs: 0,
     playerName: '',
     roundHistory: loadRoundHistoryFromLocalStorage(),
-    startGame: () =>
+    startGame: () => {
         set(() => ({
             gameStarted: true,
             startTime: Date.now(),
             attempts: 0,
             elapsedTime: 0,
             matchedPairs: 0,
-        })),
-    endGame: () => set(() => ({ gameStarted: false })),
+        }));
+    },
+    endGame: () => {
+        set(() => ({ gameStarted: false }));
+    },
     setTileCount: count => set(() => ({ tileCount: count })),
     setPlayerName: name => set(() => ({ playerName: name })),
     resetGame: () =>
