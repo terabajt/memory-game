@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface GameStatsProps {
+type GameStatsProps = {
     attempts: number;
     elapsedTime: number;
     matchedPairs: number;

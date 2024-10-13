@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../App.scss';
 import DifficultySelector from '../DifficultySelector';
-interface GameSetupProps {
+type GameSetupProps = {
     playerNameInput: string;
     setPlayerNameInput: (name: string) => void;
     setTileCount: (count: number) => void;

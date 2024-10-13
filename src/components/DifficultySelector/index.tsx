@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface DifficultySelectorProps {
+type DifficultySelectorProps = {
     setTileCount: (count: number) => void;
     disabled: boolean;
 }

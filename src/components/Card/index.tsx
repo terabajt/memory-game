@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.scss';
 
-interface CardProps {
+type CardProps = {
     card: { id: number; content: string; isFlipped: boolean; isMatched: boolean };
     onClick: () => void;
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import DifficultySelector from '../DifficultySelector';
 import GameStats from '../GameSetup';
 
-interface GameOverProps {
+type GameOverProps = {
     attempts: number;
     elapsedTime: number;
     matchedPairs: number;

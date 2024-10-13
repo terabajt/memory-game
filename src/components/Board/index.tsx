@@ -2,7 +2,7 @@ import React from 'react';
 import Card from '../Card';
 import './style.scss';
 
-interface BoardProps {
+type BoardProps = {
     cards: { id: number; content: string; isFlipped: boolean; isMatched: boolean }[];
     onCardClick: (id: number) => void;
 }

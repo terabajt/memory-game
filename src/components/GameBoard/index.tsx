@@ -3,7 +3,7 @@ import { useGameStore } from '../../store/gameStore';
 import Board from '../Board';
 import GameStats from '../GameSetup';
 
-interface Card {
+type Card = {
     id: number;
     content: string;
     isFlipped: boolean;
