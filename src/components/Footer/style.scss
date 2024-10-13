@@ -1,14 +1,14 @@
 @import '../../styles/variables.scss';
 .footer {
-  position: absolute;
-  bottom: 0;
-  padding: 20px;
-  background-color: $bg-color-01;
-  text-align: center;
-  width: 100%;
+    position: fixed;
+    bottom: 0;
+    padding: 1.25rem;
+    background-color: $bg-color-01;
+    text-align: center;
+    width: 100%;
 
-  &__content {
-    font-size: 14px;
-    color: $primary-color;
-  }
+    &__content {
+        font-size: $font-size-content-01;
+        color: $primary-color;
+    }
 }

@@ -1,3 +1,4 @@
+import Confetti from 'react-confetti';
 import DifficultySelector from '../DifficultySelector';
 import GameStats from '../GameStats';
 
@@ -36,6 +37,7 @@ const GameOver = ({
 
     return (
         <div>
+            <Confetti />
             <h2>Congratulations! You've found all pairs!</h2>
             <div className="container">
                 <DifficultySelector setTileCount={setTileCount} disabled={false} />

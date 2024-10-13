@@ -11,6 +11,14 @@
     justify-content: space-between;
 }
 
+@mixin button-main {
+    margin-top: 1.25rem;
+    padding: 1rem 1.1rem;
+    color: $white-color;
+    border: none;
+    cursor: pointer;
+}
+
 @mixin respond-to($breakpoint) {
     @if $breakpoint == mobile {
         @media (max-width: 768px) {
