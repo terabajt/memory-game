@@ -1,12 +1,10 @@
-import React from 'react';
-
 type GameStatsProps = {
     attempts: number;
     elapsedTime: number;
     matchedPairs: number;
-}
+};
 
-const GameStats: React.FC<GameStatsProps> = ({ attempts, elapsedTime, matchedPairs }) => {
+const GameStats = ({ attempts, elapsedTime, matchedPairs }: GameStatsProps) => {
     return (
         <div className="game-stats">
             <p>Attempts: {attempts}</p>

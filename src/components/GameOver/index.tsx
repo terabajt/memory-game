@@ -1,4 +1,3 @@
-import React from 'react';
 import DifficultySelector from '../DifficultySelector';
 import GameStats from '../GameSetup';
 
@@ -16,9 +15,9 @@ type GameOverProps = {
     playerNameInput: string;
     setPlayerNameInput: (name: string) => void;
     handleStartGame: () => void;
-}
+};
 
-const GameOver: React.FC<GameOverProps> = ({
+const GameOver = ({
     attempts,
     elapsedTime,
     matchedPairs,
@@ -27,7 +26,7 @@ const GameOver: React.FC<GameOverProps> = ({
     playerNameInput,
     setPlayerNameInput,
     handleStartGame,
-}) => {
+}: GameOverProps) => {
     const sortedRoundHistory = [...roundHistory].sort((a, b) => {
         if (b.matchedPairs === a.matchedPairs) {
             return a.elapsedTime - b.elapsedTime;
@@ -41,7 +40,6 @@ const GameOver: React.FC<GameOverProps> = ({
             <div className="container">
                 <DifficultySelector setTileCount={setTileCount} disabled={false} />
                 <div className="input-container">
-                    {' '}
                     <input
                         type="text"
                         placeholder="Enter player name"

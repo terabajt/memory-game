@@ -4,7 +4,7 @@ import './style.scss';
 type CardProps = {
     card: { id: number; content: string; isFlipped: boolean; isMatched: boolean };
     onClick: () => void;
-}
+};
 
 const Card: React.FC<CardProps> = ({ card, onClick }) => {
     return (

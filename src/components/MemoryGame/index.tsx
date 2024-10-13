@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useGameStore } from '../../store/gameStore';
 import GameBoard from '../GameBoard';
 import GameOver from '../GameOver';
 import GameSetup from '../GameSetup';
 
-const MemoryGame: React.FC = () => {
+const MemoryGame = () => {
     const [gameFinished, setGameFinished] = useState<boolean>(false);
     const [playerNameInput, setPlayerNameInput] = useState<string>('');
 

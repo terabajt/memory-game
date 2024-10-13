@@ -1,6 +1,7 @@
 import './App.scss';
 import MemoryGame from './components/MemoryGame';
-const App: React.FC = () => {
+
+const App = () => {
     return (
         <div className="app">
             <div className="board-container">

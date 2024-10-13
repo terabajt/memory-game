@@ -1,13 +1,13 @@
 import { create } from 'zustand';
 
-interface RoundHistory {
+type RoundHistory = {
     playerName: string;
     attempts: number;
     elapsedTime: number;
     matchedPairs: number;
-}
+};
 
-interface GameState {
+type GameState = {
     attempts: number;
     elapsedTime: number;
     gameStarted: boolean;
@@ -26,7 +26,7 @@ interface GameState {
     updateRoundHistory: () => void;
     loadRoundHistory: () => void;
     set: (fn: (state: GameState) => Partial<GameState>) => void;
-}
+};
 
 const saveRoundHistoryToLocalStorage = (roundHistory: RoundHistory[]) => {
     localStorage.setItem('roundHistory', JSON.stringify(roundHistory));

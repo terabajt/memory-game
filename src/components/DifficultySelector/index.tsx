@@ -3,10 +3,11 @@ import React from 'react';
 type DifficultySelectorProps = {
     setTileCount: (count: number) => void;
     disabled: boolean;
-}
+};
 
-const DifficultySelector: React.FC<DifficultySelectorProps> = ({ setTileCount, disabled }) => {
-    const EASY =  12;
+const DifficultySelector = (props: DifficultySelectorProps) => {
+    const { setTileCount, disabled } = props;
+    const EASY = 12;
     const MEDIUM = 20;
     const HARD = 30;
     const handleDifficultyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {

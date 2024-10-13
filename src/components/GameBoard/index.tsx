@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useGameStore } from '../../store/gameStore';
 import Board from '../Board';
 import GameStats from '../GameSetup';
@@ -8,13 +8,13 @@ type Card = {
     content: string;
     isFlipped: boolean;
     isMatched: boolean;
-}
+};
 
 type GameBoardProps = {
     handleGameFinish: () => void;
-}
+};
 
-const GameBoard: React.FC<GameBoardProps> = ({ handleGameFinish }) => {
+const GameBoard = ({ handleGameFinish }: GameBoardProps) => {
     const [cards, setCards] = useState<Card[]>([]);
     const [flippedCards, setFlippedCards] = useState<Card[]>([]);
 
