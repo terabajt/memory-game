@@ -1,0 +1,32 @@
+@use 'sass:color';
+@import '../../styles/variables';
+
+.card {
+    width: 100px;
+    height: 100px;
+    background-color: $primary-color;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    transition:
+        transform 0.3s,
+        background-color 0.3s;
+
+    &.flipped {
+        background-color: $secondary-color;
+        transform: rotateY(180deg);
+    }
+
+    &.matched {
+        background-color: $success-color;
+        cursor: not-allowed;
+    }
+
+    &:hover {
+        background-color: color.adjust($primary-color, $lightness: 15%, $space: hsl);
+    }
+}
