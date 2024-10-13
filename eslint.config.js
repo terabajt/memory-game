@@ -28,6 +28,19 @@ export default [
             'react-refresh': reactRefreshPlugin,
         },
         rules: {
+            'no-unused-vars': [
+                'warn',
+                { vars: 'all', args: 'after-used', ignoreRestSiblings: true },
+            ],
+            '@typescript-eslint/no-unused-vars': [
+                'warn',
+                {
+                    vars: 'all',
+                    args: 'after-used',
+                    ignoreRestSiblings: true,
+                    argsIgnorePattern: '^_',
+                },
+            ],
             'no-use-before-define': 'warn',
             '@typescript-eslint/no-use-before-define': ['error'],
             'react/jsx-filename-extension': [

@@ -20,6 +20,8 @@ type GameBoardProps = {
 const GameBoard = ({ handleGameFinish, attempts, elapsedTime, matchedPairs }: GameBoardProps) => {
     const [cards, setCards] = useState<Card[]>([]);
     const [flippedCards, setFlippedCards] = useState<Card[]>([]);
+    const TIME_FOR_CHECK_IN_MILISECONDS = 1000
+
 
     const cardContents = [
         '🍎',
@@ -90,7 +92,7 @@ const GameBoard = ({ handleGameFinish, attempts, elapsedTime, matchedPairs }: Ga
         setCards(updatedCards);
 
         if (updatedFlippedCards.length === 2) {
-            setTimeout(() => checkForMatch(updatedFlippedCards), 1000);
+            setTimeout(() => checkForMatch(updatedFlippedCards), TIME_FOR_CHECK_IN_MILISECONDS);
         }
     };
 
