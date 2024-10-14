@@ -78,7 +78,7 @@ This project is a Memory Card Matching Game built as part of a recruitment task.
     ```
 5. Open the application in your browser:
     ```sh
-    http://localhost:3000
+    http://localhost:5173
     ```
 
 ### Build for Production:
@@ -106,7 +106,6 @@ This will create a `dist` folder with the optimized production build.
 -   **Zustand / MobX:** For managing application state.
 -   **TypeScript:** Superset of JavaScript for adding static types.
 -   **SCSS:** A CSS preprocessor for better styling management.
--   **localStorage:** To store game statistics locally.
 
 ## Future Enhancements
 
