@@ -2,7 +2,7 @@
 
 This project is a Memory Card Matching Game built as part of a recruitment task. The game allows players to reveal pairs of identical image tiles while tracking their game statistics (attempts, time elapsed, etc.) and supporting multiple difficulty levels. The game is built using React with Vite for setup, and uses Zustand or MobX for state management. The entire project is written in TypeScript and styled using SCSS.
 
-![Memory Game](https://raw.githubusercontent.com/terabajt/memory-game/refs/heads/main/src/assets/memory-game.png)
+![Memory Game](https://raw.githubusercontent.com/terabajt/memory-game/refs/heads/main/src/assets/memo-game.gif)
 
 ## Features & Requirements
 
