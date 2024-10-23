@@ -1,60 +1,32 @@
 import Confetti from 'react-confetti';
-import DifficultySelector from '../DifficultySelector';
 import GameStats from '../GameStats';
 import './style.scss';
+import { useGameStore } from '../../store/game.store';
+import { useCallback } from 'react';
 
-type GameOverProps = {
+type RoundHistory = {
+    playerName: string;
     attempts: number;
     elapsedTime: number;
     matchedPairs: number;
-    roundHistory: {
-        playerName: string;
-        attempts: number;
-        elapsedTime: number;
-        matchedPairs: number;
-    }[];
-    setTileCount: (count: number) => void;
-    playerNameInput: string;
-    setPlayerNameInput: (name: string) => void;
-    handleStartGame: () => void;
 };
 
-const GameOver = ({
-    attempts,
-    elapsedTime,
-    matchedPairs,
-    roundHistory,
-    setTileCount,
-    playerNameInput,
-    setPlayerNameInput,
-    handleStartGame,
-}: GameOverProps) => {
-    const sortedRoundHistory = [...roundHistory].sort((a, b) => {
+type RoundHistoryProps = {
+    roundHistory: RoundHistory[];
+};
+
+const sortByTime = (items: RoundHistory[]) =>
+    items.sort((a, b) => {
         if (b.matchedPairs === a.matchedPairs) {
             return a.elapsedTime - b.elapsedTime;
         }
+
         return b.matchedPairs - a.matchedPairs;
     });
 
+const RoundHistory = ({ roundHistory }: RoundHistoryProps) => {
     return (
-        <div>
-            <Confetti />
-            <h2>Congratulations! You've found all pairs!</h2>
-            <div className="container">
-                <DifficultySelector setTileCount={setTileCount} disabled={false} />
-                <div className="input-container">
-                    <input
-                        type="text"
-                        placeholder="Enter player name"
-                        value={playerNameInput}
-                        onChange={e => setPlayerNameInput(e.target.value)}
-                    />
-                </div>
-                <button className="start-button" onClick={handleStartGame}>
-                    Start Game
-                </button>
-            </div>
-            <GameStats attempts={attempts} elapsedTime={elapsedTime} matchedPairs={matchedPairs} />
+        <>
             <h3>Round History</h3>
             <table className="round-history">
                 <thead>
@@ -66,7 +38,7 @@ const GameOver = ({
                     </tr>
                 </thead>
                 <tbody>
-                    {sortedRoundHistory.map((round, index) => (
+                    {sortByTime(roundHistory).map((round, index) => (
                         <tr key={index}>
                             <td>{round.playerName}</td>
                             <td>{round.attempts}</td>
@@ -76,6 +48,36 @@ const GameOver = ({
                     ))}
                 </tbody>
             </table>
+        </>
+    );
+};
+
+const GameOver = () => {
+    const { updateGameState, roundHistory, startGame, player, cards } = useGameStore();
+
+    const startNewGame = useCallback(() => {
+        startGame(player.name, cards.length);
+    }, [updateGameState]);
+
+    const goToGameSetup = useCallback(() => {
+        updateGameState('not-started');
+    }, [updateGameState]);
+
+    return (
+        <div>
+            <Confetti />
+            <h2>Congratulations! You've found all pairs!</h2>
+            <div>
+                <button className="start-button" onClick={goToGameSetup}>
+                    Change Game Settings
+                </button>
+
+                <button className="start-button" onClick={startNewGame}>
+                    Start New Game
+                </button>
+            </div>
+            <GameStats />
+            <RoundHistory roundHistory={roundHistory} />
         </div>
     );
 };

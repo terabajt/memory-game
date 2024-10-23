@@ -4,9 +4,9 @@ import '@testing-library/jest-dom';
 import Board from './index';
 
 const cards = [
-    { id: 1, content: 'Card 1', isFlipped: false, isMatched: false },
-    { id: 2, content: 'Card 2', isFlipped: false, isMatched: false },
-    { id: 3, content: 'Card 3', isFlipped: false, isMatched: false },
+    { id: 1, type: 'Card 1', isFlipped: false, isMatched: false },
+    { id: 2, type: 'Card 2', isFlipped: false, isMatched: false },
+    { id: 3, type: 'Card 3', isFlipped: false, isMatched: false },
 ];
 
 describe('Board Component', () => {

@@ -11,12 +11,14 @@
 
     th,
     td {
+        // you are using rem, but here px is used. use either px or rem
         border: 1px solid #ddd;
         padding: 0.5rem;
         text-align: left;
     }
 
     th {
+        // I would use css variables for colors
         background-color: #f2f2f2;
     }
 

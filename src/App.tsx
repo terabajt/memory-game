@@ -1,6 +1,7 @@
 import './App.scss';
-import Header from './components/Header';
+
 import MemoryGame from './components/MemoryGame';
+import Header from './components/Header';
 
 const App = () => {
     return (

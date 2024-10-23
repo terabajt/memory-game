@@ -1,8 +1,9 @@
 import React from 'react';
 import './style.scss';
+import { TCard } from '../../store/game.model';
 
 type CardProps = {
-    card: { id: number; content: string; isFlipped: boolean; isMatched: boolean };
+    card: TCard;
     onClick: () => void;
 };
 
@@ -13,7 +14,7 @@ const Card: React.FC<CardProps> = ({ card, onClick }) => {
             onClick={onClick}
         >
             <div className="card__content">
-                {card.isFlipped || card.isMatched ? card.content : '❓'}
+                {card.isFlipped || card.isMatched ? card.type : '❓'}
             </div>
         </div>
     );
