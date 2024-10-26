@@ -1,8 +1,9 @@
 import Card from '../Card';
 import './style.scss';
+import { TCard } from '../../store/game.model';
 
 type BoardProps = {
-    cards: { id: number; content: string; isFlipped: boolean; isMatched: boolean }[];
+    cards: TCard[];
     onCardClick: (id: number) => void;
 };
 

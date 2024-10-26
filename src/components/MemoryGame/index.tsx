@@ -1,92 +1,41 @@
-import { useEffect, useState } from 'react';
-import { useGameStore } from '../../store/gameStore';
+import { PropsWithChildren } from 'react';
+import { useGameStore } from '../../store/game.store';
 import GameBoard from '../GameBoard';
 import GameOver from '../GameOver';
 import GameSetup from '../GameSetup';
 
+const Container = ({ children }: PropsWithChildren) => {
+    return <div className="memory-game">{children}</div>;
+};
+
 const MemoryGame = () => {
-    const [gameFinished, setGameFinished] = useState<boolean>(false);
-    const [playerNameInput, setPlayerNameInput] = useState<string>('');
+    const { status } = useGameStore();
 
-    const {
-        attempts,
-        elapsedTime,
-        gameStarted,
-        startGame,
-        endGame,
-        setTileCount,
-        set,
-        roundHistory,
-        loadRoundHistory,
-        setPlayerName,
-        resetGame,
-        matchedPairs,
-        updateRoundHistory,
-    } = useGameStore();
-
-    useEffect(() => {
-        loadRoundHistory();
-    }, []);
-
-    useEffect(() => {
-        if (gameStarted) {
-            const timer = setInterval(() => {
-                set(state => ({ elapsedTime: Math.floor((Date.now() - state.startTime) / 1000) }));
-            }, 1000);
-
-            return () => clearInterval(timer);
+    switch (status) {
+        case 'not-started': {
+            return (
+                <Container>
+                    <GameSetup />
+                </Container>
+            );
         }
-    }, [gameStarted, set]);
 
-    const handleGameFinish = () => {
-        endGame();
-        updateRoundHistory();
-        setGameFinished(true);
-    };
+        case 'in-progress': {
+            return (
+                <Container>
+                    <GameBoard />
+                </Container>
+            );
+        }
 
-    const handleStartGame = () => {
-        resetGame();
-        setPlayerName(playerNameInput);
-        startGame();
-        setGameFinished(false);
-    };
-
-    return (
-        <div className="memory-game">
-            {!gameStarted && !gameFinished ? (
-                <>
-                    <GameSetup
-                        playerNameInput={playerNameInput}
-                        setPlayerNameInput={setPlayerNameInput}
-                        setTileCount={setTileCount}
-                        handleStartGame={handleStartGame}
-                    />
-                </>
-            ) : gameFinished ? (
-                <>
-                    <GameOver
-                        attempts={attempts}
-                        elapsedTime={elapsedTime}
-                        matchedPairs={matchedPairs}
-                        roundHistory={roundHistory}
-                        setTileCount={setTileCount}
-                        playerNameInput={playerNameInput}
-                        setPlayerNameInput={setPlayerNameInput}
-                        handleStartGame={handleStartGame}
-                    />
-                </>
-            ) : (
-                <>
-                    <GameBoard
-                        handleGameFinish={handleGameFinish}
-                        attempts={attempts}
-                        elapsedTime={elapsedTime}
-                        matchedPairs={matchedPairs}
-                    />
-                </>
-            )}
-        </div>
-    );
+        case 'finished': {
+            return (
+                <Container>
+                    <GameOver />
+                </Container>
+            );
+        }
+    }
 };
 
 export default MemoryGame;

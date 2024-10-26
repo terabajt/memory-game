@@ -1,12 +1,13 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import Card from './index';
+import { TCard } from '../../store/game.model.ts';
 
 describe('Card Component', () => {
     const mockOnClick = vi.fn();
 
     it('should render card with question mark when not flipped and not matched', () => {
-        const card = { id: 1, content: 'Card 1', isFlipped: false, isMatched: false };
+        const card: TCard = {  id: 1, type: '🍇', isFlipped: false, isMatched: false };
 
         render(<Card card={card} onClick={mockOnClick} />);
 
@@ -14,7 +15,7 @@ describe('Card Component', () => {
     });
 
     it('should render card content when flipped', () => {
-        const card = { id: 1, content: 'Card 1', isFlipped: true, isMatched: false };
+        const card: TCard = {  id: 1, type: '🍇', isFlipped: false, isMatched: false  };
 
         render(<Card card={card} onClick={mockOnClick} />);
 
@@ -22,7 +23,7 @@ describe('Card Component', () => {
     });
 
     it('should render matched card content', () => {
-        const card = { id: 1, content: 'Card 1', isFlipped: true, isMatched: true };
+        const card: TCard = {  id: 1, type: '🍇', isFlipped: false, isMatched: false };
 
         render(<Card card={card} onClick={mockOnClick} />);
 
@@ -30,7 +31,7 @@ describe('Card Component', () => {
     });
 
     it('should call onClick when card is clicked', () => {
-        const card = { id: 1, content: 'Card 1', isFlipped: false, isMatched: false };
+        const card: TCard = { id: 1, type: '🍇', isFlipped: false, isMatched: false };
 
         render(<Card card={card} onClick={mockOnClick} />);
 
@@ -39,7 +40,7 @@ describe('Card Component', () => {
     });
 
     it('should have the correct classes based on props', () => {
-        const card = { id: 1, content: 'Card 1', isFlipped: true, isMatched: true };
+        const card: TCard = {  id: 1, type: '🍇', isFlipped: false, isMatched: false };
 
         const { container } = render(<Card card={card} onClick={mockOnClick} />);
 
@@ -48,7 +49,7 @@ describe('Card Component', () => {
     });
 
     it('should have only flipped class when flipped but not matched', () => {
-        const card = { id: 1, content: 'Card 1', isFlipped: true, isMatched: false };
+        const card: TCard = {  id: 1, type: '🍇', isFlipped: false, isMatched: false };
 
         const { container } = render(<Card card={card} onClick={mockOnClick} />);
 

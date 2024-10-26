@@ -1,39 +1,42 @@
-import React from 'react';
+import { GameLevel } from '../../store/game.model';
+import { ChangeEvent, useCallback } from 'react';
 
 type DifficultySelectorProps = {
-    setTileCount: (count: number) => void;
+    onDifficultyChange: (level: GameLevel) => void;
     disabled: boolean;
+    value: GameLevel | undefined;
 };
 
-const DifficultySelector = (props: DifficultySelectorProps) => {
-    const { setTileCount, disabled } = props;
-    const EASY = 12;
-    const MEDIUM = 20;
-    const HARD = 30;
-    const handleDifficultyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const difficulty = event.target.value;
+const options: { value: GameLevel; name: string }[] = [
+    {
+        value: 'easy',
+        name: 'Easy',
+    },
+    {
+        value: 'medium',
+        name: 'Medium',
+    },
+    {
+        value: 'hard',
+        name: 'Hard',
+    },
+];
 
-        switch (difficulty) {
-            case 'easy':
-                setTileCount(EASY);
-                break;
-            case 'medium':
-                setTileCount(MEDIUM);
-                break;
-            case 'hard':
-                setTileCount(HARD);
-                break;
-            default:
-                setTileCount(EASY);
-                break;
-        }
-    };
+const DifficultySelector = ({ onDifficultyChange, value, disabled }: DifficultySelectorProps) => {
+    const handleDifficultyChange = useCallback(
+        (event: ChangeEvent<HTMLSelectElement>) => {
+            onDifficultyChange(event.target.value as GameLevel);
+        },
+        [onDifficultyChange],
+    );
 
     return (
-        <select onChange={handleDifficultyChange} disabled={disabled}>
-            <option value="easy">Easy</option>
-            <option value="medium">Medium</option>
-            <option value="hard">Hard</option>
+        <select value={value} onChange={handleDifficultyChange} disabled={disabled}>
+            {options.map(option => (
+                <option key={option.value} value={option.value}>
+                    {option.name}
+                </option>
+            ))}
         </select>
     );
 };

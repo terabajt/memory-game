@@ -2,11 +2,12 @@ import { describe, test, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Board from './index';
+import { TCard } from '../../store/game.model.ts';
 
-const cards = [
-    { id: 1, content: 'Card 1', isFlipped: false, isMatched: false },
-    { id: 2, content: 'Card 2', isFlipped: false, isMatched: false },
-    { id: 3, content: 'Card 3', isFlipped: false, isMatched: false },
+const cards :TCard[] = [
+    { id: 1, type: '🍇', isFlipped: false, isMatched: false },
+    { id: 2, type: '🍌', isFlipped: false, isMatched: false },
+    { id: 3, type: '🍎', isFlipped: false, isMatched: false },
 ];
 
 describe('Board Component', () => {

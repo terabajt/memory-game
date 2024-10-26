@@ -19,6 +19,7 @@
     cursor: pointer;
 }
 
+// name isn't good, I wouldn't know what it is doing
 @mixin respond-to($breakpoint) {
     @if $breakpoint == mobile {
         @media (max-width: 768px) {
